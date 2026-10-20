@@ -9,13 +9,13 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Wedding Planner", page_icon="💍", layout="wide")
+st.set_page_config(page_title="NARAYANAN - SIVAKUMAR FAMILY Wedding Planner", page_icon="💍", layout="wide")
 
 DB = Path(__file__).with_name("wedding_data.json")
 SIDES = ["Bride", "Groom"]
 RSVP = ["Pending", "Confirmed", "Declined"]
-TASK_COLS = ["task", "accountable", "vendor", "contact", "due", "remarks", "done"]
-BUD_COLS = ["item", "estimated", "actual", "advance", "remaining"]
+TASK_COLS = ["Task", "Accountable", "Vendor", "Contact No", "Due", "Remarks", "Done"]
+BUD_COLS = ["Item", "Estimated", "Actual", "Advance", "Remaining"]
 DEFAULT_TASKS = ["Book venue", "Book hotels for guests", "Finalise guest list", "Print & send invitations",
                  "Book catering", "Book photographer", "Arrange transport for guests"]
 COUPLE = {"groom": "Ajay", "groom_family": "Narayanan", "bride": "Pooja", "bride_family": "Sivakumar"}
@@ -37,7 +37,7 @@ st.markdown("""<style>
 
 # ---------- storage ----------
 def load():
-    d = {"guests": [], "hotels": [], "tasks": [], "budget": [], "couple": dict(COUPLE)}
+    d = {"Guests": [], "Hotels": [], "Tasks": [], "Budget": [], "couple": dict(COUPLE)}
     if DB.exists():
         try:
             d.update(json.loads(DB.read_text(encoding="utf-8")))
