@@ -23,7 +23,10 @@ COUPLE = {"groom": "Ajay", "groom_family": "Narayanan", "bride": "Pooja", "bride
 st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 :root{--navy:#0B2447;--royal:#1D4ED8;--azure:#2F80ED;--sky:#5BC0F8;--ice:#EAF4FF;--mist:#F5F9FF;--line:#CFE0F7;--ink:#14284B}
-html,body,[class*="st-"],.stApp{font-family:'Plus Jakarta Sans',sans-serif}
+html,body,.stApp,.stApp p,.stApp label,.stApp input,.stApp textarea,.stApp button,.stApp li,.stApp td,.stApp th,.stApp summary{font-family:'Plus Jakarta Sans',sans-serif}
+/* keep Streamlit's icon font so arrows/icons don't show as raw text */
+[data-testid="stIconMaterial"],span[class*="material"],.material-icons,.material-symbols-rounded{font-family:'Material Symbols Rounded','Material Symbols Outlined','Material Icons'!important;font-weight:normal!important;letter-spacing:normal!important;text-transform:none!important}
+.stApp .hero h1,.stApp .sec,.stApp [data-testid="stMetricValue"],.stApp .card b{font-family:'Fraunces',serif!important}
 .stApp{background:radial-gradient(1200px 500px at 90% -10%,#DCEBFF 0%,transparent 60%),linear-gradient(180deg,#F5F9FF 0%,#EAF2FD 100%);color:var(--ink)}
 [data-testid="stHeader"]{background:transparent}
 .block-container{padding-top:2rem;max-width:1200px}
