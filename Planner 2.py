@@ -28,17 +28,10 @@ html,body,[class*="css"],.stApp{font-family:'Poppins',sans-serif;color:var(--ink
 .block-container{padding-top:1.5rem;max-width:1250px}
 header[data-testid="stHeader"]{background:transparent}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-radius:26px;padding:34px 30px;margin-bottom:18px;text-align:center;
- background:linear-gradient(120deg,#0b2a5b 0%,#1565c0 55%,#0ea5e9 100%);box-shadow:0 14px 34px rgba(21,101,192,.35)}
-.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
-.hero:before{width:260px;height:260px;left:-70px;top:-110px}.hero:after{width:200px;height:200px;right:-50px;bottom:-90px}
-.hero .rings{font-size:2.2rem;position:relative}
-.hero h1{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.5rem,3.6vw,2.7rem);line-height:1.25;margin:6px 0 4px;padding:0;position:relative;
- background:linear-gradient(90deg,#ffffff,#9be7ff 30%,#ffd1e6 60%,#ffe28a);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:#cfe6ff;margin:0;letter-spacing:.18em;font-size:.78rem;font-weight:500;position:relative}
-.chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative}
-.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:5px 14px;font-size:.8rem;backdrop-filter:blur(4px)}
+/* page title */
+.ptitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.6rem,3.4vw,2.5rem);margin:0 0 14px;padding:0 0 10px;
+ background:linear-gradient(90deg,var(--blue),var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent;
+ border-bottom:3px solid var(--sky)}
 
 /* section headings */
 .sec{display:flex;align-items:center;gap:12px;margin:14px 0 10px}
@@ -254,11 +247,8 @@ def cards(items):
 money = lambda x: f"₹{x:,.0f}"
 
 # ---------- header ----------
-st.markdown(
-    f'<div class="hero"><div class="rings">💍</div><h1>{html.escape(TITLE)}</h1><p>WE ARE GETTING MARRIED</p>'
-    f'<div class="chips"><span class="chip">🤵 {html.escape(CP["groom"])} · {html.escape(CP["groom_family"])} family</span>'
-    f'<span class="chip">👰 {html.escape(CP["bride"])} · {html.escape(CP["bride_family"])} family</span></div></div>',
-    unsafe_allow_html=True)
+st.markdown(f'<h1 class="ptitle">💍 {html.escape(CP["groom_family"])} &amp; {html.escape(CP["bride_family"])} '
+            f'Family Wedding Planner</h1>', unsafe_allow_html=True)
 with st.expander("👰🤵 COUPLE & FAMILY DETAILS"):
     a, b, c, d = st.columns(4)
     CP["groom"] = a.text_input("Groom", CP["groom"])
