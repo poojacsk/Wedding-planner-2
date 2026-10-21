@@ -1,5 +1,8 @@
 streamlit
 pandas
 openpyxl
-pytesseract
+numpy
 pillow
+pytesseract
+opencv-python-headless
+anthropic
