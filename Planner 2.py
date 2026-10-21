@@ -21,17 +21,68 @@ DEFAULT_TASKS = ["Book venue", "Book hotels for guests", "Finalise guest list", 
 COUPLE = {"groom": "Ajay", "groom_family": "Narayanan", "bride": "Pooja", "bride_family": "Sivakumar"}
 
 st.markdown("""<style>
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:8px 0 18px}
-.card{border-radius:16px;padding:14px 16px;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.18)}
-.card small{opacity:.9;letter-spacing:.07em;font-size:.7rem;font-weight:600}
-.card b{display:block;font-size:1.5rem;margin-top:4px}
-.c1{background:linear-gradient(135deg,#7f5af0,#5a8dee)}.c2{background:linear-gradient(135deg,#f6a04d,#ef6a8a)}
-.c3{background:linear-gradient(135deg,#2cb67d,#2c9fb6)}.c4{background:linear-gradient(135deg,#ef4565,#c0306a)}
-.item{border:1px solid rgba(128,128,128,.3);border-radius:14px;padding:12px 14px;margin-bottom:10px}
-.item .top{display:flex;justify-content:space-between;gap:8px;font-weight:600}
-.item .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:.8rem;opacity:.8;margin:6px 0 8px}
-.bar{height:8px;border-radius:8px;background:rgba(128,128,128,.25);overflow:hidden}
-.bar>div{height:100%;background:linear-gradient(90deg,#2cb67d,#7f5af0)}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600&display=swap');
+:root{--navy:#0b2a5b;--blue:#1565c0;--sky:#29b6f6;--aqua:#00c2d1;--ice:#eaf3ff;--ink:#16355f}
+html,body,[class*="css"],.stApp{font-family:'Poppins',sans-serif;color:var(--ink)}
+.stApp{background:radial-gradient(circle at 10% 0%,#d6e8ff 0,transparent 40%),radial-gradient(circle at 95% 10%,#d9f6ff 0,transparent 35%),linear-gradient(180deg,#eef5ff,#f8fbff 50%,#e6f0ff)}
+.block-container{padding-top:1.5rem;max-width:1250px}
+header[data-testid="stHeader"]{background:transparent}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:34px 30px;margin-bottom:18px;text-align:center;
+ background:linear-gradient(120deg,#0b2a5b 0%,#1565c0 55%,#0ea5e9 100%);box-shadow:0 14px 34px rgba(21,101,192,.35)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero:before{width:260px;height:260px;left:-70px;top:-110px}.hero:after{width:200px;height:200px;right:-50px;bottom:-90px}
+.hero .rings{font-size:2.2rem;position:relative}
+.hero h1{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.5rem,3.6vw,2.7rem);line-height:1.25;margin:6px 0 4px;padding:0;position:relative;
+ background:linear-gradient(90deg,#ffffff,#9be7ff 30%,#ffd1e6 60%,#ffe28a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#cfe6ff;margin:0;letter-spacing:.18em;font-size:.78rem;font-weight:500;position:relative}
+.chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:5px 14px;font-size:.8rem;backdrop-filter:blur(4px)}
+
+/* section headings */
+.sec{display:flex;align-items:center;gap:12px;margin:14px 0 10px}
+.sec i{width:8px;height:30px;border-radius:8px}
+.sec h3{margin:0;padding:0;font-family:'Playfair Display',serif;font-weight:800;font-size:1.45rem;letter-spacing:.04em;
+ -webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* tabs */
+div[data-baseweb="tab-list"]{gap:8px;background:#fff;padding:8px;border-radius:18px;box-shadow:0 4px 14px rgba(21,101,192,.12)}
+button[data-baseweb="tab"]{border-radius:12px;padding:8px 16px;font-weight:600;color:var(--blue)}
+button[data-baseweb="tab"][aria-selected="true"]{background:linear-gradient(135deg,#1565c0,#29b6f6);color:#fff}
+button[data-baseweb="tab"][aria-selected="true"] p{color:#fff}
+div[data-baseweb="tab-highlight"],div[data-baseweb="tab-border"]{display:none}
+
+/* buttons */
+.stButton>button,.stDownloadButton>button,.stFormSubmitButton>button,a[data-testid="stBaseLinkButton-secondary"]{
+ border:0;border-radius:12px;padding:.5rem 1.2rem;font-weight:600;color:#fff;background:linear-gradient(135deg,#1565c0,#29b6f6);
+ box-shadow:0 4px 12px rgba(21,101,192,.3);transition:.2s}
+.stButton>button:hover,.stDownloadButton>button:hover,.stFormSubmitButton>button:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(21,101,192,.4);color:#fff}
+.stButton>button p,.stDownloadButton>button p,.stFormSubmitButton>button p{color:#fff}
+
+/* metrics, expanders, forms, inputs */
+[data-testid="stMetric"]{background:#fff;border-radius:18px;padding:14px 18px;border-left:6px solid var(--sky);box-shadow:0 6px 16px rgba(21,101,192,.12)}
+[data-testid="stMetricValue"]{color:var(--blue);font-weight:700}
+[data-testid="stExpander"],[data-testid="stForm"]{background:rgba(255,255,255,.85);border:1px solid #cfe2ff;border-radius:18px}
+[data-testid="stDataFrame"],[data-testid="stDataEditor"]{border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(21,101,192,.1)}
+div[data-baseweb="input"],div[data-baseweb="select"]>div,div[data-baseweb="textarea"]{border-radius:10px}
+.stProgress>div>div>div>div{background:linear-gradient(90deg,#29b6f6,#1565c0)}
+hr{border-color:#cfe2ff}
+
+/* summary cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:8px 0 18px}
+.card{border-radius:18px;padding:16px 18px;color:#fff;box-shadow:0 8px 20px rgba(21,101,192,.25)}
+.card small{opacity:.92;letter-spacing:.08em;font-size:.7rem;font-weight:600}
+.card b{display:block;font-size:1.55rem;margin-top:4px}
+.c1{background:linear-gradient(135deg,#1565c0,#42a5f5)}.c2{background:linear-gradient(135deg,#6a3df0,#4f8cff)}
+.c3{background:linear-gradient(135deg,#00a8a8,#29b6f6)}.c4{background:linear-gradient(135deg,#ec407a,#7e57c2)}
+
+/* budget items */
+.item{background:#fff;border:1px solid #cfe2ff;border-left:6px solid var(--sky);border-radius:16px;padding:12px 16px;margin-bottom:10px;box-shadow:0 4px 12px rgba(21,101,192,.08)}
+.item .top{display:flex;justify-content:space-between;gap:8px;font-weight:600;color:var(--navy)}
+.item .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:.8rem;color:#4a6896;margin:6px 0 8px}
+.bar{height:9px;border-radius:9px;background:#dbe9ff;overflow:hidden}
+.bar>div{height:100%;background:linear-gradient(90deg,#00c2d1,#1565c0)}
 </style>""", unsafe_allow_html=True)
 
 
@@ -88,8 +139,15 @@ CP = D["couple"]
 TITLE = f"{CP['groom']} ({CP['groom_family']}) & {CP['bride']} ({CP['bride_family']}) Wedding"
 
 
+SEC_COLORS = [("#1565c0", "#00b4d8"), ("#5e35b1", "#2196f3"), ("#00897b", "#29b6f6"),
+              ("#d81b60", "#7e57c2"), ("#ef6c00", "#e91e63"), ("#0277bd", "#26c6da")]
+
+
 def H(t):
-    st.subheader(t.upper())
+    c1, c2 = SEC_COLORS[sum(map(ord, t)) % len(SEC_COLORS)]
+    st.markdown(f'<div class="sec"><i style="background:linear-gradient({c1},{c2})"></i>'
+                f'<h3 style="background-image:linear-gradient(90deg,{c1},{c2})">{html.escape(t.upper())}</h3></div>',
+                unsafe_allow_html=True)
 
 
 def new_guest(name, side, headcount=1, phone="", relation="", rsvp="Pending"):
@@ -196,7 +254,11 @@ def cards(items):
 money = lambda x: f"₹{x:,.0f}"
 
 # ---------- header ----------
-st.title(f"💍 {TITLE}".upper())
+st.markdown(
+    f'<div class="hero"><div class="rings">💍</div><h1>{html.escape(TITLE)}</h1><p>WE ARE GETTING MARRIED</p>'
+    f'<div class="chips"><span class="chip">🤵 {html.escape(CP["groom"])} · {html.escape(CP["groom_family"])} family</span>'
+    f'<span class="chip">👰 {html.escape(CP["bride"])} · {html.escape(CP["bride_family"])} family</span></div></div>',
+    unsafe_allow_html=True)
 with st.expander("👰🤵 COUPLE & FAMILY DETAILS"):
     a, b, c, d = st.columns(4)
     CP["groom"] = a.text_input("Groom", CP["groom"])
@@ -207,8 +269,6 @@ with st.expander("👰🤵 COUPLE & FAMILY DETAILS"):
         save()
         st.rerun()
 view = st.radio("VIEW", ["All", "Bride", "Groom"], horizontal=True, key="view")
-st.caption(f"Bride side: {CP['bride']} – {CP['bride_family']} family  |  "
-           f"Groom side: {CP['groom']} – {CP['groom_family']} family")
 
 tabs = st.tabs(["📊 DASHBOARD", "👥 GUEST LIST", "🏨 ROOMS & SHARING", "✅ TASKS", "💰 BUDGET"])
 
