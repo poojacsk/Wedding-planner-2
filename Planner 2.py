@@ -426,5 +426,3 @@ with tabs[4]:
            ("Actual", money(sum(r["actual"] for r in live)), "c2"),
            ("Advance paid", money(sum(r["advance"] for r in live)), "c3"),
            ("Remaining", money(sum(r["remaining"] for r in live)), "c4")])
-Planner 2.py
-Displaying Planner 2.py.
