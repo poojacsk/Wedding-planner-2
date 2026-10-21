@@ -1,6 +1,7 @@
 import hashlib
 import html
 import json
+import io
 import re
 import urllib.parse
 import uuid
@@ -261,8 +262,7 @@ money = lambda x: f"₹{x:,.0f}"
 # ---------- header ----------
 st.markdown(
     f'<div class="hero"><div class="rings">💍</div><h1>{html.escape(TITLE)}</h1>'
-    f'<p><b>Bride side:</b> {html.escape(CP["bride"])} – {html.escape(CP["bride_family"])} family &nbsp;&nbsp;|&nbsp;&nbsp; '
-    f'<b>Groom side:</b> {html.escape(CP["groom"])} – {html.escape(CP["groom_family"])} family</p></div>',
+    f'</div>',
     unsafe_allow_html=True)
 with st.expander("👰🤵 COUPLE & FAMILY DETAILS"):
     a, b, c, d = st.columns(4)
@@ -297,9 +297,21 @@ with tabs[0]:
             st.metric("GUESTS WITH ROOMS", f"{len(assigned)} / {len(df)}")
             if not assigned.empty:
                 st.bar_chart(assigned.groupby("hotel").headcount.sum())
-    st.download_button("⬇️ Download full guest list (CSV)",
-                       pd.DataFrame(D["guests"]).to_csv(index=False).encode("utf-8-sig"),
-                       "guests.csv", "text/csv", disabled=not D["guests"])
+    def guests_xlsx():
+        buf = io.BytesIO()
+        gdf_x = pd.DataFrame(D["guests"]).drop(columns=["id"], errors="ignore")
+        gdf_x.columns = [c.title() for c in gdf_x.columns]
+        with pd.ExcelWriter(buf, engine="openpyxl") as xw:
+            gdf_x.to_excel(xw, index=False, sheet_name="Guests")
+            ws = xw.sheets["Guests"]
+            for col in ws.columns:
+                ws.column_dimensions[col[0].column_letter].width = min(
+                    40, max(len(str(c.value or "")) for c in col) + 3)
+        return buf.getvalue()
+
+    st.download_button("⬇️ Download full guest list (Excel)", guests_xlsx() if D["guests"] else b"",
+                       "guests.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                       disabled=not D["guests"])
 
 # ---------- Guest list ----------
 with tabs[1]:
