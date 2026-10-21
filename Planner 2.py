@@ -129,7 +129,7 @@ if "data" not in st.session_state:
 D = st.session_state.data
 sync_budget()
 CP = D["couple"]
-TITLE = f"{CP['groom']} ({CP['groom_family']}) & {CP['bride']} ({CP['bride_family']}) Wedding"
+TITLE = f"{CP['groom']} {CP['groom_family']} & {CP['bride']} {CP['bride_family']} Vivah"
 
 
 SEC_COLORS = [("#1565c0", "#00b4d8"), ("#5e35b1", "#2196f3"), ("#00897b", "#29b6f6"),
@@ -249,15 +249,6 @@ money = lambda x: f"₹{x:,.0f}"
 # ---------- header ----------
 st.markdown(f'<h1 class="ptitle">💍 {html.escape(CP["groom_family"])} &amp; {html.escape(CP["bride_family"])} '
             f'Family Wedding Planner</h1>', unsafe_allow_html=True)
-with st.expander("👰🤵 COUPLE & FAMILY DETAILS"):
-    a, b, c, d = st.columns(4)
-    CP["groom"] = a.text_input("Groom", CP["groom"])
-    CP["groom_family"] = b.text_input("Groom's family", CP["groom_family"])
-    CP["bride"] = c.text_input("Bride", CP["bride"])
-    CP["bride_family"] = d.text_input("Bride's family", CP["bride_family"])
-    if st.button("Save details"):
-        save()
-        st.rerun()
 view = st.radio("VIEW", ["All", "Bride", "Groom"], horizontal=True, key="view")
 
 tabs = st.tabs(["📊 DASHBOARD", "👥 GUEST LIST", "🏨 ROOMS & SHARING", "✅ TASKS", "💰 BUDGET"])
